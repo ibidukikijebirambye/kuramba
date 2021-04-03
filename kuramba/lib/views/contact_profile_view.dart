@@ -18,7 +18,6 @@ class ContactProfileView extends StatelessWidget {
               : userSnapshot.data['username'],
         ),
       ),
-      //TODO Add contact profile view
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
@@ -26,7 +25,7 @@ class ContactProfileView extends StatelessWidget {
           const SizedBox(height: 25.0),
           ContactFlowerpowerCard(),
         ],
-      )
+      ),
     );
   }
 }

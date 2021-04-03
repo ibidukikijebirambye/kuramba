@@ -14,8 +14,10 @@ class DataView extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance.collection('questions').get(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot> questionsSnapshot) {
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<QuerySnapshot> questionsSnapshot,
+        ) {
           if (!questionsSnapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
