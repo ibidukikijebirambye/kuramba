@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1043649372161",
+    "project_id": "sustainability-network",
+    "storage_bucket": "sustainability-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043649372161:android:c9e947b10f761df2d3e000",
+        "android_client_info": {
+          "package_name": "com.nicolasebeling.sustainability_network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043649372161-4ledlc6gk8hkt8ja79m4trl2p769reg2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDPDfVCrTp2fQYi3hGpbFLnV9neTEFh64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043649372161-4ledlc6gk8hkt8ja79m4trl2p769reg2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
