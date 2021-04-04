@@ -6,25 +6,19 @@ class ContactFlowerpowerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final AsyncSnapshot userSnapshot =
         ModalRoute.of(context).settings.arguments;
-
     return CustomCard(
       onTap: () {},
-      child: userSnapshot.connectionState == ConnectionState.waiting
-          ? Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-              child: Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+        child: userSnapshot.connectionState == ConnectionState.waiting
+            ? Center(
                 child: CircularProgressIndicator(),
-              ),
-            )
-          : Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-              child: Row(
+              )
+            : Row(
                 children: [
                   Icon(
-                    //Icons.eco,
                     Icons.filter_vintage,
+                    //Icons.eco,
                     //Icons.local_florist,
                     size: 50.0,
                     color: Theme.of(context).primaryColor,
@@ -33,10 +27,10 @@ class ContactFlowerpowerCard extends StatelessWidget {
                   Text(
                     '12345',
                     style: TextStyle(fontSize: 30.0),
-                  )
+                  ),
                 ],
               ),
-            ),
+      ),
     );
   }
 }

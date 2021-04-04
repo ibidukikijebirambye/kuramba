@@ -64,7 +64,7 @@ class App extends StatelessWidget {
               themeSnapshot,
             ) {
               return MaterialApp(
-                title: 'Sustainability Network',
+                title: 'Kuramba',
                 themeMode: Provider.of<ThemeProvider>(context).currentThemeMode,
                 theme: Provider.of<ThemeProvider>(context).theme,
                 darkTheme: Provider.of<ThemeProvider>(context).darkTheme,

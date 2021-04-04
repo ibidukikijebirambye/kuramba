@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-enum Answers {answer1, answer2, answer3}
+enum Answer {
+  answer1,
+  answer2,
+  answer3,
+}
 
 class RadioButton extends StatefulWidget {
-
   @override
   _RadioButtonState createState() => _RadioButtonState();
 }
 
 class _RadioButtonState extends State<RadioButton> {
+  Answer _site = Answer.answer1;
 
-  Answers _site = Answers.answer1;
-
-  void answer (Answers value) {
+  void answer(Answer value) {
     setState(() {
       _site = value;
     });
@@ -26,7 +28,7 @@ class _RadioButtonState extends State<RadioButton> {
           title: const Text('Answer 1'),
           leading: Radio(
             activeColor: Theme.of(context).primaryColor,
-            value: Answers.answer1,
+            value: Answer.answer1,
             groupValue: _site,
             onChanged: answer,
           ),

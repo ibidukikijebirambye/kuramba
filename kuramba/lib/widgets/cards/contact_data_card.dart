@@ -42,19 +42,14 @@ class ContactDataCard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 10.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ElevatedButton.icon(
-                              onPressed: () {},
-                              label: Text('Connect'),
-                              icon: Icon(Icons.person_add_alt_1_sharp),
-                            ),
-                          ],
-                        )
+                        ElevatedButton.icon(
+                          onPressed: () {},
+                          label: Text('Connect'),
+                          icon: Icon(Icons.person_add_alt_1_sharp),
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
       ),

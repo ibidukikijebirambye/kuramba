@@ -1,21 +1,21 @@
 import 'package:flutter/foundation.dart';
 
 enum Category {
-  Living,
-  Consumption,
-  Nutrition,
-  Leisure,
-  Mobility,
-  Traveling,
+  living,
+  consumption,
+  nutrition,
+  leisure,
+  mobility,
+  traveling,
 }
 
 enum AnswerType {
-  Number,
-  CheckBox,
-  ComboBox,
-  RadioButton,
-  Slider,
-  Date,
+  number,
+  checkBox,
+  comboBox,
+  radioButton,
+  slider,
+  date,
 }
 
 class Question {
