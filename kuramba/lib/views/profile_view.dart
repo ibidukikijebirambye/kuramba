@@ -8,10 +8,12 @@ import 'challenges_view.dart';
 import 'statistics_view.dart';
 import 'data_view.dart';
 
+import '../widgets/dialogs/custom_error_dialog.dart';
+
 import '../widgets/cards/category_card.dart';
 
 class ProfileView extends StatelessWidget {
-  final List<Map<String, Object>> _categories = [
+  final List<Map<String, Object>> categories = [
     {
       'title': 'Challenges',
       'iconData': Icons.grade_rounded,
@@ -36,85 +38,104 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _mediaQuery = MediaQuery.of(context);
+    final mediaQuery = MediaQuery.of(context);
     return Consumer<CurrentUserProvider>(
       builder: (context, userProvider, _) {
         return SafeArea(
-          child: ListView(
-            children: [
-              Container(
-                height: _mediaQuery.size.width * 0.7,
-                width: _mediaQuery.size.width * 0.7,
-                margin: EdgeInsets.all(
-                  _mediaQuery.size.width * 0.15,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(colors: [
-                    Theme.of(context).primaryColor.withOpacity(0.8),
-                    Theme.of(context).primaryColor,
-                  ]),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).shadowColor,
-                      blurRadius: 10,
-                      spreadRadius: 3,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Sustainability Index',
-                      style: TextStyle(
-                        color: Colors.white,
+          child: RefreshIndicator(
+            onRefresh: () async {
+              try {
+                Provider.of<CurrentUserProvider>(
+                  context,
+                  listen: false,
+                ).fetchData();
+              } catch (error) {
+                var message = 'An error occurred. Please try again!';
+                if (error.message != null) {
+                  message = error.message;
+                }
+                showDialog(
+                  context: context,
+                  builder: (context) => CustomErrorDialog(message),
+                );
+              }
+            },
+            child: ListView(
+              children: [
+                Container(
+                  height: mediaQuery.size.width * 0.7,
+                  width: mediaQuery.size.width * 0.7,
+                  margin: EdgeInsets.all(
+                    mediaQuery.size.width * 0.15,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(colors: [
+                      Theme.of(context).primaryColor.withOpacity(0.8),
+                      Theme.of(context).primaryColor,
+                    ]),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).shadowColor,
+                        blurRadius: 10,
+                        spreadRadius: 3,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '54321',
-                      style: TextStyle(
-                        color: Colors.white,
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Sustainability Index',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        '54321',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  bottom: 40,
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    bottom: 40,
+                  ),
+                  child: Text(
+                    '${userProvider.user.username}',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                child: Text(
-                  '${userProvider.user.username}',
-                  textAlign: TextAlign.center,
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(
+                    20,
+                  ),
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                  ),
+                  itemBuilder: (context, index) => CategoryCard(
+                    title: categories[index]['title'],
+                    iconData: categories[index]['iconData'],
+                    routeName: categories[index]['routeName'],
+                  ),
+                  itemCount: categories.length,
                 ),
-              ),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(
-                  20,
-                ),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 1,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemBuilder: (context, index) => CategoryCard(
-                  title: _categories[index]['title'],
-                  iconData: _categories[index]['iconData'],
-                  routeName: _categories[index]['routeName'],
-                ),
-                itemCount: _categories.length,
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

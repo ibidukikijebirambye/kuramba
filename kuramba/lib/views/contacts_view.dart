@@ -12,19 +12,10 @@ class ContactsView extends StatelessWidget {
       child: Consumer<CurrentUserProvider>(
         builder: (context, userProvider, _) {
           return userProvider.user.contacts.length == 0
-              ? Container(
-                  padding: const EdgeInsets.only(
-                    top: 100,
-                  ),
-                  alignment: Alignment.center,
-                  child: Center(
-                    child: Text(
-                      'You don\'t have any contacts yet.\nStart adding some!',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText2.copyWith(
-                            height: 1.5,
-                          ),
-                    ),
+              ? Center(
+                  child: Text(
+                    'You don\'t have any contacts yet.\nStart adding some!',
+                    textAlign: TextAlign.center,
                   ),
                 )
               : GridView.builder(

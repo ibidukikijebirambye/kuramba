@@ -18,6 +18,7 @@ class ThemeProvider with ChangeNotifier {
     textTheme: GoogleFonts.montserratTextTheme().copyWith(
       bodyText2: TextStyle(
         color: Colors.grey[600],
+        height: 1.5,
       ),
     ),
     //Divider

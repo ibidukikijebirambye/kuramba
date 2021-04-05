@@ -7,7 +7,6 @@ import 'feed_view.dart';
 import 'contacts_view.dart';
 import 'profile_view.dart';
 import 'search_view.dart';
-import '../widgets/dialogs/custom_error_dialog.dart';
 import '../views/settings/main_settings_view.dart';
 
 class MainView extends StatefulWidget {
@@ -46,7 +45,11 @@ class _MainViewState extends State<MainView> {
   void selectView(int index) {
     setState(() {
       selectedViewIndex = index;
-      controller.animateToPage(index, duration: Duration(milliseconds: 450), curve: Curves.ease);
+      controller.animateToPage(
+        index,
+        duration: Duration(milliseconds: 450),
+        curve: Curves.ease,
+      );
     });
   }
 
@@ -110,43 +113,18 @@ class _MainViewState extends State<MainView> {
         ),
       ),
       body: _isInit
-          ? RefreshIndicator(
-              onRefresh: () async {
-                try {
-                  Provider.of<CurrentUserProvider>(
-                    context,
-                    listen: false,
-                  ).fetchData();
-                } catch (error) {
-                  var message = 'An error occurred. Please try again!';
-                  if (error.message != null) {
-                    message = error.message;
-                  }
-                  showDialog(
-                    context: context,
-                    builder: (context) => CustomErrorDialog(message),
-                  );
-                  showDialog(
-                    context: context,
-                    builder: (context) => CustomErrorDialog(error.message),
-                  );
-                }
+          ? PageView(
+              children: [
+                views[0]['view'],
+                views[1]['view'],
+                views[2]['view'],
+              ],
+              controller: controller,
+              onPageChanged: (index) {
+                setState(() {
+                  selectedViewIndex = index;
+                });
               },
-              child: PageView(
-                children: [
-                  views[0]['view'],
-                  views[1]['view'],
-                  views[2]['view'],
-                ],
-                controller: controller,
-                onPageChanged: (index) {
-                  setState(() {
-                    selectedViewIndex = index;
-                  });
-                },
-              ),
-
-              //views[selectedViewIndex]['view'],
             )
           : Center(
               child: CircularProgressIndicator(),
