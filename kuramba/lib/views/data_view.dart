@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../widgets/cards/custom_card.dart';
-
-import '../models/question.dart';
+import 'package:sustainability_network/widgets/cards/question_category_card.dart';
 
 import '../providers/question_catalog_provider.dart';
 
@@ -38,43 +35,15 @@ class DataView extends StatelessWidget {
               ).previews;
               return ListView.builder(
                 padding: EdgeInsets.all(20.0),
-                itemCount: questionPreviews.length,
+                itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  Color categoryColor;
-                  // TODO Add colors for all categories
-                  switch (questionPreviews[index].category) {
-                    case QuestionCategory.living:
-                      categoryColor = Colors.blue;
-                      break;
-                    case QuestionCategory.nutrition:
-                      categoryColor = Colors.pink;
-                      break;
-                    default:
-                      categoryColor = Colors.amber;
-                  }
-                  return Container(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                      child: CustomCard(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              left: BorderSide(
-                                color: categoryColor,
-                                width: 25.0,
-                              ),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Text(questionPreviews[index].title),
-                          ),
-                        ),
-                        onTap: () {},
-                      ),
-                    ),
+                  return QuestionCategoryCard(
+                    categoryColor: categories[index]['color'],
+                    questionPreviews: questionPreviews,
+                    index: index,
+                    categories: categories,
                   );
-                },
+                  },
               );
             }
           },
@@ -83,3 +52,26 @@ class DataView extends StatelessWidget {
     );
   }
 }
+
+List categories = [
+  {
+    'title' : 'Living',
+    'color' : Colors.blue,
+  },
+  {
+    'title' : 'Consumption',
+    'color' : Colors.pink,
+  },
+  {
+    'title' : 'Nutrition',
+    'color' : Colors.amber,
+  },
+  {
+    'title' : 'Leisure',
+    'color' : Colors.purple,
+  },
+  {
+    'title' : 'Mobility',
+    'color' : Colors.lightGreen,
+  },
+];
