@@ -10,18 +10,11 @@ import 'providers/current_user_provider.dart';
 import 'views/auth_view.dart';
 import 'views/splash_screen.dart';
 import 'views/main_view.dart';
-import 'views/settings/main_settings_view.dart';
-import 'views/settings/theme_settings_view.dart';
-import 'views/challenges_view.dart';
-import 'views/achievements_view.dart';
-import 'views/statistics_view.dart';
-import 'views/data_view.dart';
-import 'views/info_view.dart';
-import 'views/contact_profile_view.dart';
-import 'views/search_view.dart';
+
+import 'config/routes.dart';
 
 void main() async {
-  //temporarily disabled landscape mode due to the lack of responsiveness
+  // temporarily disabled landscape mode due to the lack of responsiveness
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [
@@ -78,18 +71,7 @@ class App extends StatelessWidget {
                           return authSnapshot.hasData ? MainView() : AuthView();
                         },
                       ),
-                routes: {
-                  MainSettingsView.routeName: (context) => MainSettingsView(),
-                  ThemeSettingsView.routeName: (context) => ThemeSettingsView(),
-                  ChallengesView.routeName: (context) => ChallengesView(),
-                  AchievementsView.routeName: (context) => AchievementsView(),
-                  StatisticsView.routeName: (context) => StatisticsView(),
-                  InfoView.routeName: (context) => InfoView(),
-                  ContactProfileView.routeName: (context) =>
-                      ContactProfileView(),
-                  DataView.routeName: (context) => DataView(),
-                  SearchView.routeName: (context) => SearchView(),
-                },
+                routes: routes,
               );
             },
           );

@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/question.dart';
 
 class QuestionCatalogProvider with ChangeNotifier {
-  // List<Question> _questions;
   List<QuestionPreview> _questionPreviews = [];
 
   Future<void> fetchQuestionPreviews() async {
@@ -18,34 +17,11 @@ class QuestionCatalogProvider with ChangeNotifier {
         final previewData = previewDoc.data();
         previewData.forEach(
           (key, value) {
-            QuestionCategory category;
-            switch (value['category']) {
-              case 'living':
-                category = QuestionCategory.living;
-                break;
-              case 'consumption':
-                category = QuestionCategory.consumption;
-                break;
-              case 'nutrition':
-                category = QuestionCategory.nutrition;
-                break;
-              case 'leisure':
-                category = QuestionCategory.leisure;
-                break;
-              case 'mobility':
-                category = QuestionCategory.mobility;
-                break;
-              case 'traveling':
-                category = QuestionCategory.traveling;
-                break;
-              default:
-                category = QuestionCategory.miscellaneous;
-            }
             _questionPreviews.add(
               QuestionPreview(
                 key,
                 value['title'],
-                category,
+                getCategory(value['category']),
               ),
             );
           },
@@ -56,7 +32,123 @@ class QuestionCatalogProvider with ChangeNotifier {
     }
   }
 
+  QuestionCategory getCategory(String category) {
+    switch (category) {
+      case 'living':
+        return QuestionCategory.living;
+        break;
+      case 'consumption':
+        return QuestionCategory.consumption;
+        break;
+      case 'nutrition':
+        return QuestionCategory.nutrition;
+        break;
+      case 'leisure':
+        return QuestionCategory.leisure;
+        break;
+      case 'mobility':
+        return QuestionCategory.mobility;
+        break;
+      case 'traveling':
+        return QuestionCategory.traveling;
+        break;
+      default:
+        return QuestionCategory.miscellaneous;
+    }
+  }
+
   List<QuestionPreview> get previews {
     return [..._questionPreviews];
+  }
+
+  Future<Question> getQuestion(String id) async {
+    try {
+      final questionDoc = await FirebaseFirestore.instance
+          .collection('questions')
+          .doc(id)
+          .get();
+      if (questionDoc.exists) {
+        final questionData = questionDoc.data();
+        switch (questionData['type']) {
+          case 'number':
+            return NumberQuestion(
+              id: id,
+              title: questionDoc['title'],
+              category: getCategory(questionDoc['category']),
+              question: questionDoc['question'],
+            );
+            break;
+          case 'checkbox':
+            return CheckBoxQuestion(
+              id: id,
+              title: questionDoc['title'],
+              category: getCategory(questionDoc['category']),
+              question: questionDoc['question'],
+              answers: questionDoc['answers']
+                  .map(
+                    (answer) => Answer(
+                      answer: answer['answer'],
+                      points: answer['points'],
+                    ),
+                  )
+                  .toList(),
+            );
+            break;
+          case 'combobox':
+            return ComboBoxQuestion(
+              id: id,
+              title: questionDoc['title'],
+              category: getCategory(questionDoc['category']),
+              question: questionDoc['question'],
+              answers: questionDoc['answers']
+                  .map(
+                    (answer) => Answer(
+                      answer: answer['answer'],
+                      points: answer['points'],
+                    ),
+                  )
+                  .toList(),
+            );
+            break;
+          case 'radiobutton':
+            return RadioButtonQuestion(
+              id: id,
+              title: questionDoc['title'],
+              category: getCategory(questionDoc['category']),
+              question: questionDoc['question'],
+              answers: questionDoc['answers']
+                  .map(
+                    (answer) => Answer(
+                      answer: answer['answer'],
+                      points: answer['points'],
+                    ),
+                  )
+                  .toList(),
+            );
+            break;
+          case 'slider':
+            return SliderQuestion(
+              id: id,
+              title: questionDoc['title'],
+              category: getCategory(questionDoc['category']),
+              question: questionDoc['question'] ?? '',
+              minValue: questionDoc['minValue'] ?? 0,
+              maxValue: questionDoc['maxValue'] ?? 1,
+            );
+            break;
+          default:
+            return Question(
+              id: id,
+              title: questionDoc['title'],
+              category: getCategory(questionDoc['category']),
+              question: questionDoc['question'],
+            );
+        }
+      } else {
+        throw Exception(['Question not found.']);
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }

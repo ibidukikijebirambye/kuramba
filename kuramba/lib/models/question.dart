@@ -32,7 +32,7 @@ class Answer {
   });
 }
 
-abstract class Question {
+class Question {
   final String id;
   final String title;
   final QuestionCategory category;
@@ -119,7 +119,6 @@ class RadioButtonQuestion extends Question {
 }
 
 class SliderQuestion extends Question {
-  final List<Answer> answers;
   final int minValue;
   final int maxValue;
   int divisions;
@@ -129,7 +128,6 @@ class SliderQuestion extends Question {
     @required title,
     @required category,
     @required question,
-    @required this.answers,
     @required this.minValue,
     @required this.maxValue,
     this.divisions,
