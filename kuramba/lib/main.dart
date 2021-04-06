@@ -22,10 +22,10 @@ void main() async {
       DeviceOrientation.portraitDown,
     ],
   );
-  runApp(App());
+  runApp(Kuramba());
 }
 
-class App extends StatelessWidget {
+class Kuramba extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -54,4 +54,27 @@ class CurrentUserProvider with ChangeNotifier {
       throw error;
     }
   }
+
+  Future<void> addToContacts(String email) async {
+    try {
+      final fb = FirebaseFirestore.instance;
+      final contactDoc = (await fb
+              .collection('users')
+              .where(
+                'email',
+                isEqualTo: email,
+              )
+              .limit(1)
+              .get())
+          .docs[0];
+      return fb
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser.uid)
+          .collection('contacts')
+          .doc(contactDoc.id)
+          .set({});
+    } catch (error) {
+      throw error;
+    }
+  }
 }

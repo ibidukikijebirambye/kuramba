@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sustainability_network/widgets/cards/contact_flowerpower_card.dart';
 
+import '../widgets/cards/contact_flowerpower_card.dart';
 import '../widgets/cards/contact_data_card.dart';
 
 class ContactProfileView extends StatelessWidget {

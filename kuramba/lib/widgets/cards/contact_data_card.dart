@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/current_user_provider.dart';
+
 import 'custom_card.dart';
 
 class ContactDataCard extends StatelessWidget {
@@ -43,7 +47,10 @@ class ContactDataCard extends StatelessWidget {
                         ),
                         SizedBox(height: 10.0),
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () => Provider.of<CurrentUserProvider>(
+                            context,
+                            listen: false,
+                          ).addToContacts(userSnapshot.data['email']),
                           label: Text('Connect'),
                           icon: Icon(Icons.person_add_alt_1_sharp),
                         ),
