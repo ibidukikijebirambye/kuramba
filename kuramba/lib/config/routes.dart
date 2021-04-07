@@ -9,6 +9,7 @@ import '../views/data_view.dart';
 import '../views/info_view.dart';
 import '../views/contact_profile_view.dart';
 import '../views/search_view.dart';
+import '../views/question_view.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {
   MainSettingsView.routeName: (context) => MainSettingsView(),
@@ -20,4 +21,5 @@ final Map<String, Widget Function(BuildContext)> routes = {
   ContactProfileView.routeName: (context) => ContactProfileView(),
   DataView.routeName: (context) => DataView(),
   SearchView.routeName: (context) => SearchView(),
+  QuestionView.routeName: (context) => QuestionView(),
 };
