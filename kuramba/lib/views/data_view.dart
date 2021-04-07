@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sustainability_network/widgets/cards/question_category_card.dart';
 
-import '../providers/question_catalog_provider.dart';
+import '../providers/question_catalog.dart';
 
 class DataView extends StatelessWidget {
   static const routeName = '/data_view';
@@ -13,10 +13,10 @@ class DataView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Data'),
       ),
-      body: ChangeNotifierProvider<QuestionCatalogProvider>(
-        create: (context) => QuestionCatalogProvider(),
+      body: ChangeNotifierProvider<QuestionCatalog>(
+        create: (context) => QuestionCatalog(),
         builder: (context, _) => FutureBuilder(
-          future: Provider.of<QuestionCatalogProvider>(
+          future: Provider.of<QuestionCatalog>(
             context,
             listen: false,
           ).fetchQuestionPreviews(),
@@ -29,7 +29,7 @@ class DataView extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else {
-              final questionPreviews = Provider.of<QuestionCatalogProvider>(
+              final questionPreviews = Provider.of<QuestionCatalog>(
                 context,
                 listen: false,
               ).previews;
@@ -43,7 +43,7 @@ class DataView extends StatelessWidget {
                     index: index,
                     categories: categories,
                   );
-                  },
+                },
               );
             }
           },
@@ -55,23 +55,23 @@ class DataView extends StatelessWidget {
 
 List categories = [
   {
-    'title' : 'Living',
-    'color' : Colors.blue,
+    'title': 'Living',
+    'color': Colors.blue,
   },
   {
-    'title' : 'Consumption',
-    'color' : Colors.pink,
+    'title': 'Consumption',
+    'color': Colors.pink,
   },
   {
-    'title' : 'Nutrition',
-    'color' : Colors.amber,
+    'title': 'Nutrition',
+    'color': Colors.amber,
   },
   {
-    'title' : 'Leisure',
-    'color' : Colors.purple,
+    'title': 'Leisure',
+    'color': Colors.purple,
   },
   {
-    'title' : 'Mobility',
-    'color' : Colors.lightGreen,
+    'title': 'Mobility',
+    'color': Colors.lightGreen,
   },
 ];

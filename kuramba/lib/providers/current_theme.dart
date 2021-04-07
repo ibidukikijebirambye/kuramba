@@ -6,7 +6,7 @@ enum ThemeColor {
   green,
 }
 
-class ThemeProvider with ChangeNotifier {
+class CurrentTheme with ChangeNotifier {
   final _greenTheme = ThemeData(
     //General
     brightness: Brightness.light,

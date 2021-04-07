@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'providers/theme_provider.dart';
-import 'providers/current_user_provider.dart';
+import 'providers/current_theme.dart';
+import 'providers/current_user.dart';
 
 import 'views/auth_view.dart';
 import 'views/splash_screen.dart';
@@ -31,49 +31,35 @@ class Kuramba extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) {
-            return ThemeProvider();
-          },
+          create: (context) => CurrentTheme(),
         ),
         ChangeNotifierProvider(
-          create: (context) {
-            return CurrentUserProvider();
-          },
+          create: (context) => CurrentUser(),
         ),
       ],
-      child: FutureBuilder(
-        future: Firebase.initializeApp(),
-        builder: (
-          context,
-          appSnapshot,
-        ) {
-          return FutureBuilder(
-            future: Provider.of<ThemeProvider>(
-              context,
-              listen: false,
-            ).fetchThemeData(),
-            builder: (
-              context,
-              themeSnapshot,
-            ) {
-              return MaterialApp(
-                title: 'Kuramba',
-                themeMode: Provider.of<ThemeProvider>(context).currentThemeMode,
-                theme: Provider.of<ThemeProvider>(context).theme,
-                darkTheme: Provider.of<ThemeProvider>(context).darkTheme,
-                debugShowCheckedModeBanner: false,
-                home: appSnapshot.connectionState != ConnectionState.done ||
-                        themeSnapshot.connectionState != ConnectionState.done
-                    ? SplashScreen()
-                    : StreamBuilder(
-                        stream: FirebaseAuth.instance.authStateChanges(),
-                        builder: (context, authSnapshot) {
-                          return authSnapshot.hasData ? MainView() : AuthView();
-                        },
-                      ),
-                routes: routes,
-              );
-            },
+      builder: (context, child) => FutureBuilder(
+        future: Future.wait(
+          [
+            Firebase.initializeApp(),
+            Provider.of<CurrentTheme>(context, listen: false).fetchThemeData(),
+          ],
+        ),
+        builder: (context, snapshot) {
+          return MaterialApp(
+            title: 'Kuramba',
+            themeMode: Provider.of<CurrentTheme>(context).currentThemeMode,
+            theme: Provider.of<CurrentTheme>(context).theme,
+            darkTheme: Provider.of<CurrentTheme>(context).darkTheme,
+            debugShowCheckedModeBanner: false,
+            home: snapshot.connectionState != ConnectionState.done
+                ? SplashScreen()
+                : StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: (context, authSnapshot) {
+                      return authSnapshot.hasData ? MainView() : AuthView();
+                    },
+                  ),
+            routes: routes,
           );
         },
       ),

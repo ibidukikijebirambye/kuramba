@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/current_user_provider.dart';
+import '../providers/current_user.dart';
 
 import 'feed_view.dart';
 import 'contacts_view.dart';
@@ -58,7 +58,7 @@ class _MainViewState extends State<MainView> {
   @override
   void didChangeDependencies() async {
     if (!_isInit) {
-      await Provider.of<CurrentUserProvider>(
+      await Provider.of<CurrentUser>(
         context,
         listen: false,
       ).fetchData();

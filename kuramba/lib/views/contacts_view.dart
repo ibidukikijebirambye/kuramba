@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/current_user_provider.dart';
+import '../providers/current_user.dart';
 
 import '../widgets/cards/user_card.dart';
 
@@ -9,7 +9,7 @@ class ContactsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Consumer<CurrentUserProvider>(
+      child: Consumer<CurrentUser>(
         builder: (context, userProvider, _) {
           return userProvider.user.contacts.length == 0
               ? Center(

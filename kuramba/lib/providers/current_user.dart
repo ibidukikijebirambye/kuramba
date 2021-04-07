@@ -16,7 +16,7 @@ class User {
   });
 }
 
-class CurrentUserProvider with ChangeNotifier {
+class CurrentUser with ChangeNotifier {
   User _user;
 
   User get user {

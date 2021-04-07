@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/current_user_provider.dart';
+import '../providers/current_user.dart';
 
 import 'achievements_view.dart';
 import 'challenges_view.dart';
@@ -39,13 +39,13 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    return Consumer<CurrentUserProvider>(
+    return Consumer<CurrentUser>(
       builder: (context, userProvider, _) {
         return SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
               try {
-                Provider.of<CurrentUserProvider>(
+                Provider.of<CurrentUser>(
                   context,
                   listen: false,
                 ).fetchData();

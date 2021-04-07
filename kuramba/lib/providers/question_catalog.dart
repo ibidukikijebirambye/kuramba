@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/question.dart';
 
-class QuestionCatalogProvider with ChangeNotifier {
+class QuestionCatalog with ChangeNotifier {
   List<QuestionPreview> _questionPreviews = [];
 
   Future<void> fetchQuestionPreviews() async {
