@@ -35,8 +35,8 @@ class QuestionCategoryCard extends StatelessWidget {
               Text(
                 categories[index]['title'],
                 style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black,
+                  fontSize: 25,
+                  color: Theme.of(context).textTheme.bodyText2.color,
                 ),
               ),
             ],
@@ -45,9 +45,18 @@ class QuestionCategoryCard extends StatelessWidget {
         children: <Widget>[
           Container(
             margin: EdgeInsets.symmetric(horizontal: 7),
-            child: QuestionCard(
-              questionPreviews: questionPreviews,
-              index: index,
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: questionPreviews.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // access element from list using index
+                  // you can create and return a widget of your choice
+                  return QuestionCard(
+                    questionPreviews: questionPreviews,
+                    index: index,
+                    categoryColor: categoryColor,
+                  );
+                }
             )
            )
         ],

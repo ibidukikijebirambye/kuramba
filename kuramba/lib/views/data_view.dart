@@ -57,7 +57,7 @@ List categories = [
   {
     'title': 'Living',
     'color': Colors.blue,
-  },
+   },
   {
     'title': 'Consumption',
     'color': Colors.pink,
