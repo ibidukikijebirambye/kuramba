@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../providers/current_theme.dart';
+import '../../providers/dynamic_theme.dart';
 
 import '../../widgets/cards/custom_card.dart';
 import '../../widgets/labeled_divider.dart';
@@ -13,19 +13,19 @@ class ThemeSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> availableThemeColors =
-        Provider.of<CurrentTheme>(
+        Provider.of<DynamicTheme>(
       context,
       listen: false,
     ).availableThemeColors;
     final List<Map<String, dynamic>> availableThemeModes =
-        Provider.of<CurrentTheme>(
+        Provider.of<DynamicTheme>(
       context,
       listen: false,
     ).availableThemeModes;
     final ThemeColor currentThemeColor =
-        Provider.of<CurrentTheme>(context).currentThemeColor;
+        Provider.of<DynamicTheme>(context).currentThemeColor;
     final ThemeMode currentThemeMode =
-        Provider.of<CurrentTheme>(context).currentThemeMode;
+        Provider.of<DynamicTheme>(context).currentThemeMode;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -66,7 +66,7 @@ class ThemeSettingsView extends StatelessWidget {
                         currentThemeMode == availableThemeModes[index]['value']
                             ? Icon(Icons.check_rounded)
                             : null,
-                    onTap: () => Provider.of<CurrentTheme>(
+                    onTap: () => Provider.of<DynamicTheme>(
                       context,
                       listen: false,
                     ).setThemeMode(availableThemeModes[index]['value']),
@@ -111,7 +111,7 @@ class ThemeSettingsView extends StatelessWidget {
                             availableThemeColors[index]['value']
                         ? Icon(Icons.check_rounded)
                         : null,
-                    onTap: () => Provider.of<CurrentTheme>(
+                    onTap: () => Provider.of<DynamicTheme>(
                       context,
                       listen: false,
                     ).setThemeColor(

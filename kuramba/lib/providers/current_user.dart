@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserData {
   final String email;
   final String username;
   final String imageURL;
   final List<String> contacts;
 
-  User({
+  UserData({
     @required this.email,
     @required this.username,
     @required this.imageURL,
@@ -17,10 +17,10 @@ class User {
 }
 
 class CurrentUser with ChangeNotifier {
-  User _user;
+  UserData _user;
 
-  User get user {
-    return User(
+  UserData get user {
+    return UserData(
       email: _user.email,
       username: _user.username,
       imageURL: _user.imageURL,
@@ -39,7 +39,7 @@ class CurrentUser with ChangeNotifier {
           .doc(FirebaseAuth.instance.currentUser.uid)
           .collection('contacts')
           .get();
-      _user = User(
+      _user = UserData(
         email: userData.data()['email'],
         username: userData.data()['username'],
         imageURL: userData.data()['image_url'],

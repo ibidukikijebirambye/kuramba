@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'providers/current_theme.dart';
+import 'providers/dynamic_theme.dart';
 import 'providers/current_user.dart';
 
 import 'views/auth_view.dart';
@@ -31,7 +31,7 @@ class Kuramba extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CurrentTheme(),
+          create: (context) => DynamicTheme(),
         ),
         ChangeNotifierProvider(
           create: (context) => CurrentUser(),
@@ -41,15 +41,15 @@ class Kuramba extends StatelessWidget {
         future: Future.wait(
           [
             Firebase.initializeApp(),
-            Provider.of<CurrentTheme>(context, listen: false).fetchThemeData(),
+            Provider.of<DynamicTheme>(context, listen: false).fetchThemeData(),
           ],
         ),
         builder: (context, snapshot) {
           return MaterialApp(
             title: 'Kuramba',
-            themeMode: Provider.of<CurrentTheme>(context).currentThemeMode,
-            theme: Provider.of<CurrentTheme>(context).theme,
-            darkTheme: Provider.of<CurrentTheme>(context).darkTheme,
+            themeMode: Provider.of<DynamicTheme>(context).currentThemeMode,
+            theme: Provider.of<DynamicTheme>(context).theme,
+            darkTheme: Provider.of<DynamicTheme>(context).darkTheme,
             debugShowCheckedModeBanner: false,
             home: snapshot.connectionState != ConnectionState.done
                 ? SplashScreen()

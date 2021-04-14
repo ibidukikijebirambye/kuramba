@@ -84,7 +84,7 @@ class _MainViewState extends State<MainView> {
             ),
             child: selectedViewIndex == 2
                 ? IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.search_rounded,
                     ),
                     onPressed: () => Navigator.of(context).push(
