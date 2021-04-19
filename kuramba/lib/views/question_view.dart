@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import '../widgets/cards/question_display_card.dart';
 
-import '../widgets/question_catalogue/slider.dart';
-
+import '../widgets/question_catalog/slider.dart';
 
 class QuestionView extends StatelessWidget {
   static const routeName = '/question_view';
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> arguments =
+        ModalRoute.of(context).settings.arguments;
 
-    final Map arguments = ModalRoute.of(context).settings.arguments;
-    
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: arguments['categoryColor'],
-          title: Text(arguments['questionPreviews'][arguments['index']].title),
+      appBar: AppBar(
+        backgroundColor: arguments['color'],
+        title: Text(arguments['title']),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            QuestionDisplayCard(
+              answerType: CustomSlider(),
+              question: arguments['id'],
+            ),
+          ],
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(children: [
-              QuestionDisplayCard(
-                answertype: CustomSlider(),
-                question: 'question',
-              ),
-            ]
-            )
-        )
+      ),
     );
   }
 }

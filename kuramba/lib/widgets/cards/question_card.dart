@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:sustainability_network/widgets/cards/custom_card.dart';
+import '../../views/question_view.dart';
 
-import 'package:sustainability_network/views/question_view.dart';
+import '../../models/question.dart';
+
+import 'custom_card.dart';
 
 class QuestionCard extends StatelessWidget {
-
-  final questionPreviews;
-  final int index;
-  final Color categoryColor;
+  final QuestionPreview preview;
+  final Color color;
 
   QuestionCard({
-    this.questionPreviews,
-    this.index,
-    this.categoryColor
+    this.preview,
+    this.color,
   });
 
   @override
@@ -21,21 +20,18 @@ class QuestionCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: CustomCard(
-        child: Container(
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(questionPreviews[index].title),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text(preview.title),
         ),
         onTap: () {
           Navigator.of(context).pushNamed(
             QuestionView.routeName,
             arguments: {
-              'questionPreviews' : questionPreviews,
-              'categoryColor' : categoryColor,
-              'index' : index
-            }
+              'id': preview.id,
+              'title': preview.title,
+              'color': color,
+            },
           );
         },
       ),

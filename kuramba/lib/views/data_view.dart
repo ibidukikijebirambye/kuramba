@@ -7,6 +7,33 @@ import '../providers/question_catalog.dart';
 class DataView extends StatelessWidget {
   static const routeName = '/data_view';
 
+  final List<Map<String, dynamic>> _categories = [
+    {
+      'category': 'Living',
+      'color': Colors.blue,
+    },
+    {
+      'category': 'Consumption',
+      'color': Colors.pink,
+    },
+    {
+      'category': 'Nutrition',
+      'color': Colors.amber,
+    },
+    {
+      'category': 'Leisure',
+      'color': Colors.purple,
+    },
+    {
+      'category': 'Mobility',
+      'color': Colors.lightGreen,
+    },
+    {
+      'category': 'Traveling',
+      'color': Colors.red,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +56,26 @@ class DataView extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else {
-              final questionPreviews = Provider.of<QuestionCatalog>(
+              final previews = Provider.of<QuestionCatalog>(
                 context,
                 listen: false,
               ).previews;
-              return ListView.builder(
-                padding: EdgeInsets.all(20.0),
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
+              return ListView.separated(
+                padding: const EdgeInsets.all(20),
+                itemCount: _categories.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 20),
+                itemBuilder: (BuildContext context, int index) {
                   return QuestionCategoryCard(
-                    categoryColor: categories[index]['color'],
-                    questionPreviews: questionPreviews,
-                    index: index,
-                    categories: categories,
+                    previews: previews
+                        .where(
+                          (preview) =>
+                              preview.category ==
+                              _categories[index]['category'],
+                        )
+                        .toList(),
+                    color: _categories[index]['color'],
+                    category: _categories[index]['category'],
                   );
                 },
               );
@@ -52,26 +86,3 @@ class DataView extends StatelessWidget {
     );
   }
 }
-
-List categories = [
-  {
-    'title': 'Living',
-    'color': Colors.blue,
-   },
-  {
-    'title': 'Consumption',
-    'color': Colors.pink,
-  },
-  {
-    'title': 'Nutrition',
-    'color': Colors.amber,
-  },
-  {
-    'title': 'Leisure',
-    'color': Colors.purple,
-  },
-  {
-    'title': 'Mobility',
-    'color': Colors.lightGreen,
-  },
-];

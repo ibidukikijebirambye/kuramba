@@ -1,25 +1,26 @@
 import 'package:flutter/foundation.dart';
 
-enum QuestionCategory {
-  living,
-  consumption,
-  nutrition,
-  leisure,
-  mobility,
-  traveling,
-  miscellaneous,
-}
+// enum QuestionCategory {
+//   living,
+//   consumption,
+//   nutrition,
+//   leisure,
+//   mobility,
+//   traveling,
+//   miscellaneous,
+// }
 
 class QuestionPreview {
   final String id;
   final String title;
-  final QuestionCategory category;
+  // final QuestionCategory category;
+  final String category;
 
-  QuestionPreview(
-    this.id,
-    this.title,
-    this.category,
-  );
+  QuestionPreview({
+    @required this.id,
+    @required this.title,
+    @required this.category,
+  });
 }
 
 class Answer {
@@ -35,7 +36,8 @@ class Answer {
 class Question {
   final String id;
   final String title;
-  final QuestionCategory category;
+  // final QuestionCategory category;
+  final String category;
   final String question;
 
   Question({

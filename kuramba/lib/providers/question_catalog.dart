@@ -14,15 +14,16 @@ class QuestionCatalog with ChangeNotifier {
           .doc('previews')
           .get();
       if (previewDoc.exists) {
+        _questionPreviews = [];
         final previewData = previewDoc.data();
         previewData.forEach(
           (key, value) {
             _questionPreviews.add(
               QuestionPreview(
-                key,
-                value['title'],
-                getCategory(value['category']),
-              ),
+                  id: key,
+                  title: value['title'],
+                  // getCategory(value['category']),
+                  category: value['category']),
             );
           },
         );
@@ -32,30 +33,30 @@ class QuestionCatalog with ChangeNotifier {
     }
   }
 
-  QuestionCategory getCategory(String category) {
-    switch (category) {
-      case 'living':
-        return QuestionCategory.living;
-        break;
-      case 'consumption':
-        return QuestionCategory.consumption;
-        break;
-      case 'nutrition':
-        return QuestionCategory.nutrition;
-        break;
-      case 'leisure':
-        return QuestionCategory.leisure;
-        break;
-      case 'mobility':
-        return QuestionCategory.mobility;
-        break;
-      case 'traveling':
-        return QuestionCategory.traveling;
-        break;
-      default:
-        return QuestionCategory.miscellaneous;
-    }
-  }
+  // QuestionCategory getCategory(String category) {
+  //   switch (category) {
+  //     case 'living':
+  //       return QuestionCategory.living;
+  //       break;
+  //     case 'consumption':
+  //       return QuestionCategory.consumption;
+  //       break;
+  //     case 'nutrition':
+  //       return QuestionCategory.nutrition;
+  //       break;
+  //     case 'leisure':
+  //       return QuestionCategory.leisure;
+  //       break;
+  //     case 'mobility':
+  //       return QuestionCategory.mobility;
+  //       break;
+  //     case 'traveling':
+  //       return QuestionCategory.traveling;
+  //       break;
+  //     default:
+  //       return QuestionCategory.miscellaneous;
+  //   }
+  // }
 
   List<QuestionPreview> get previews {
     return [..._questionPreviews];
@@ -74,7 +75,9 @@ class QuestionCatalog with ChangeNotifier {
             return NumberQuestion(
               id: id,
               title: questionDoc['title'],
-              category: getCategory(questionDoc['category']),
+              // category: getCategory(questionDoc['category']),
+              category: questionDoc['category'],
+
               question: questionDoc['question'],
             );
             break;
@@ -82,7 +85,9 @@ class QuestionCatalog with ChangeNotifier {
             return CheckBoxQuestion(
               id: id,
               title: questionDoc['title'],
-              category: getCategory(questionDoc['category']),
+              // category: getCategory(questionDoc['category']),
+              category: questionDoc['category'],
+
               question: questionDoc['question'],
               answers: questionDoc['answers']
                   .map(
@@ -98,7 +103,9 @@ class QuestionCatalog with ChangeNotifier {
             return ComboBoxQuestion(
               id: id,
               title: questionDoc['title'],
-              category: getCategory(questionDoc['category']),
+              // category: getCategory(questionDoc['category']),
+              category: questionDoc['category'],
+
               question: questionDoc['question'],
               answers: questionDoc['answers']
                   .map(
@@ -114,7 +121,8 @@ class QuestionCatalog with ChangeNotifier {
             return RadioButtonQuestion(
               id: id,
               title: questionDoc['title'],
-              category: getCategory(questionDoc['category']),
+              // category: getCategory(questionDoc['category']),
+              category: questionDoc['category'],
               question: questionDoc['question'],
               answers: questionDoc['answers']
                   .map(
@@ -130,7 +138,8 @@ class QuestionCatalog with ChangeNotifier {
             return SliderQuestion(
               id: id,
               title: questionDoc['title'],
-              category: getCategory(questionDoc['category']),
+              // category: getCategory(questionDoc['category']),
+              category: questionDoc['category'],
               question: questionDoc['question'] ?? '',
               minValue: questionDoc['minValue'] ?? 0,
               maxValue: questionDoc['maxValue'] ?? 1,
@@ -140,7 +149,9 @@ class QuestionCatalog with ChangeNotifier {
             return Question(
               id: id,
               title: questionDoc['title'],
-              category: getCategory(questionDoc['category']),
+              // category: getCategory(questionDoc['category']),
+              category: questionDoc['category'],
+
               question: questionDoc['question'],
             );
         }
