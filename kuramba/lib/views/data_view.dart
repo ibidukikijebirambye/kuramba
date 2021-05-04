@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sustainability_network/widgets/cards/question_category_card.dart';
+
+// import '../widgets/cards/question_card.dart';
+import '../widgets/cards/question_category_card.dart';
 
 import '../providers/question_catalog.dart';
 
@@ -60,6 +62,31 @@ class DataView extends StatelessWidget {
                 context,
                 listen: false,
               ).previews;
+              // List<ExpansionPanel> children = [];
+              // _categories.forEach(
+              //   (category) {
+              //     children.add(
+              //       ExpansionPanel(
+              //         headerBuilder: (BuildContext context, bool isOpen) =>
+              //             Text(category['category']),
+              //         body: ListView.builder(
+              //           padding: const EdgeInsets.symmetric(horizontal: 10),
+              //           shrinkWrap: true,
+              //           itemCount: previews.length,
+              //           itemBuilder: (BuildContext context, int index) {
+              //             return QuestionCard(
+              //               preview: previews[index],
+              //               color: _categories[index]['color'],
+              //             );
+              //           },
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // );
+              // return ExpansionPanelList(
+              //     children: children,
+              //     );
               return ListView.separated(
                 padding: const EdgeInsets.all(20),
                 itemCount: _categories.length,
@@ -67,6 +94,8 @@ class DataView extends StatelessWidget {
                     const SizedBox(height: 20),
                 itemBuilder: (BuildContext context, int index) {
                   return QuestionCategoryCard(
+                    color: _categories[index]['color'],
+                    category: _categories[index]['category'],
                     previews: previews
                         .where(
                           (preview) =>
@@ -74,8 +103,6 @@ class DataView extends StatelessWidget {
                               _categories[index]['category'],
                         )
                         .toList(),
-                    color: _categories[index]['color'],
-                    category: _categories[index]['category'],
                   );
                 },
               );

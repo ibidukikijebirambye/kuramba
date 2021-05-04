@@ -17,45 +17,41 @@ class QuestionDisplayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<QuestionCatalog>(
-        create: (context) => QuestionCatalog(),
-        builder: (context, _) => FutureBuilder(
-          future: Provider.of<QuestionCatalog>(
-            context,
-            listen: false,
-          ).getQuestion(id),
-          builder: (
-              context,
-              snapshot,
-              ) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              final question = Provider.of<QuestionCatalog>(
-                context,
-                listen: false,
-              ).getQuestion(id);
-              return CustomCard(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Text(
-                          id,
-                          style: TextStyle(fontSize: 17),
-                        ),
+      create: (context) => QuestionCatalog(),
+      builder: (context, _) => FutureBuilder(
+        future: Provider.of<QuestionCatalog>(
+          context,
+          listen: false,
+        ).getQuestion(id),
+        builder: (
+          context,
+          snapshot,
+        ) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return CustomCard(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                        snapshot.data.title,
+                        style: TextStyle(fontSize: 17),
                       ),
-                      answerType,
-                    ],
-                  ),
+                    ),
+                    answerType,
+                  ],
                 ),
-              );
-            }
-          },
-        ),
-      );
+              ),
+            );
+          }
+        },
+      ),
+    );
   }
 }

@@ -3,10 +3,12 @@ import 'package:expansion_card/expansion_card.dart';
 
 import 'question_card.dart';
 
+import '../../models/question.dart';
+
 class QuestionCategoryCard extends StatelessWidget {
-  final previews;
   final Color color;
   final String category;
+  final List<QuestionPreview> previews;
 
   QuestionCategoryCard({
     this.previews,
@@ -34,7 +36,7 @@ class QuestionCategoryCard extends StatelessWidget {
         ),
         children: <Widget>[
           ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             shrinkWrap: true,
             itemCount: previews.length,
             itemBuilder: (BuildContext context, int index) {

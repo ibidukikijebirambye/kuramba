@@ -70,6 +70,7 @@ class QuestionCatalog with ChangeNotifier {
           .get();
       if (questionDoc.exists) {
         final questionData = questionDoc.data();
+        print(questionData['type']);
         switch (questionData['type']) {
           case 'number':
             return NumberQuestion(
@@ -77,7 +78,6 @@ class QuestionCatalog with ChangeNotifier {
               title: questionDoc['title'],
               // category: getCategory(questionDoc['category']),
               category: questionDoc['category'],
-
               question: questionDoc['question'],
             );
             break;
@@ -87,7 +87,6 @@ class QuestionCatalog with ChangeNotifier {
               title: questionDoc['title'],
               // category: getCategory(questionDoc['category']),
               category: questionDoc['category'],
-
               question: questionDoc['question'],
               answers: questionDoc['answers']
                   .map(
@@ -105,7 +104,6 @@ class QuestionCatalog with ChangeNotifier {
               title: questionDoc['title'],
               // category: getCategory(questionDoc['category']),
               category: questionDoc['category'],
-
               question: questionDoc['question'],
               answers: questionDoc['answers']
                   .map(
@@ -151,7 +149,6 @@ class QuestionCatalog with ChangeNotifier {
               title: questionDoc['title'],
               // category: getCategory(questionDoc['category']),
               category: questionDoc['category'],
-
               question: questionDoc['question'],
             );
         }
@@ -159,7 +156,7 @@ class QuestionCatalog with ChangeNotifier {
         throw Exception(['Question not found.']);
       }
     } catch (error) {
-      throw error;
+      print(error.message);
     }
   }
 }
