@@ -22,7 +22,7 @@ class QuestionView extends StatelessWidget {
           children: [
             QuestionDisplayCard(
               answerType: CustomSlider(),
-              question: arguments['id'],
+              id: arguments['id'],
             ),
           ],
         ),
