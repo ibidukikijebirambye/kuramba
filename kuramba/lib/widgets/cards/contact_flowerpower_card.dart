@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sustainability_network/flower_power_icon.dart';
 import 'custom_card.dart';
 
 class ContactFlowerpowerCard extends StatelessWidget {
@@ -17,7 +18,8 @@ class ContactFlowerpowerCard extends StatelessWidget {
             : Row(
                 children: [
                   Icon(
-                    Icons.filter_vintage,
+                    FlowerPowerIcon.flowerpower,
+                    //Icons.filter_vintage,
                     //Icons.eco,
                     //Icons.local_florist,
                     size: 50.0,

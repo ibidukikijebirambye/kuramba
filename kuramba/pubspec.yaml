@@ -89,6 +89,9 @@ flutter:
   # All following fonts are licensed under the Open Font License.
 
   fonts:
+    - family: FlowerPowerIcon
+      fonts:
+        - asset: assets/fonts/FlowerPowerIcon.ttf
     - family: Quicksand
       fonts:
         - asset: assets/fonts/Quicksand-VariableFont_wght.ttf
